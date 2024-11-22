@@ -45,11 +45,19 @@ def flatten_data (entry) :
     for value in entry.get("subindexes",dict()).values():
         flatten_data(value)
 
-with open ("rapidwords-compact.json","w") as f:
-    json.dump(rw,f) #,indent="\t")
-
 for value in rw["subindexes"].values():
     flatten_data(value)
+
+def compact_data(entry):
+    for value in entry.get("subindexes",dict()).values():
+        compact_data(value)
+    entry.pop("hyponyms", None)
+    entry.pop("hypernyms", None)
+
+compact_data(rw)
+
+with open ("rapidwords-compact.json","w") as f:
+    json.dump(rw,f) #,indent="\t")
 
 with open("rapidwords.json", "w") as f:
     json.dump(flat,f) #,indent="\t")
