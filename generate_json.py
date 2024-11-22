@@ -53,6 +53,7 @@ def compact_data(entry):
         compact_data(value)
     entry.pop("hyponyms", None)
     entry.pop("hypernyms", None)
+    entry.pop("index", None)
 
 compact_data(rw)
 
